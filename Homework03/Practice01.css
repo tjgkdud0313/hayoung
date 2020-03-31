@@ -1,0 +1,25 @@
+
+
+/* 
+    TODO+번호가 표기된 부분만 전부 빨간색이 되도록 선택자를 적어보세요 
+    #TODO번호 부분을 지우고 기입하면 됩니다.
+    주의사항:
+    - TODO## 텍스트만 빨간색으로 표시
+    - 선택자에 컴마 사용 금지
+*/
+
+#TODO01 { color: red; }
+
+#TODO02 { color: red; }
+
+#TODO03 { color: red; }
+
+#TODO04 { color: red; }
+
+#TODO05 { color: red; }
+
+#TODO06 { color: red; }
+
+#TODO07 { color: red; }
+
+
