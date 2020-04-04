@@ -8,18 +8,19 @@
     - 선택자에 컴마 사용 금지
 */
 
-#TODO01 { color: red; }
+h1{ color: red; }
 
-#TODO02 { color: red; }
+h2{ color: red; }
 
-#TODO03 { color: red; }
+h4{ color: red; }
 
-#TODO04 { color: red; }
+ul>li:nth-child(3){ color: red; }
 
-#TODO05 { color: red; }
+span{ color: red; }
 
-#TODO06 { color: red; }
+tbody>tr:nth-child(3)>td{ color: red; }
+tbody>tr:nth-child(5)>td{ color: red; }
 
-#TODO07 { color: red; }
+[for="rr2"]{ color: red; }
 
 
