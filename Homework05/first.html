@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script>
+
+            window.onload=()=>{
+                var h1Title = document.getElementById("title");
+               // alert(h1Title.textContent);
+               h1Title.textContent="hello World";
+               var span = document.getElementsByClassName("spanClass");
+               if(span.length==0)return alert("못찾음");
+               //이거는 if에 해당이 안될때 일케 실행하라는거
+               span[0].textContent="<b>TEST<b>";
+               span[0].style.color="red";
+                        };
+
+                        function onErrorImg(img){
+                            //console.log(img)
+                            img.src="http://via.placeholder.com/300x90.png?text=On_Error_Image";
+                        }
+
+                        function querySelect(){
+                            //alert("test");
+                            var sel = prompt("query?");
+                            console.log(sel);
+                            var selectedTag = document.querySelector(sel);
+                        selectedTags.array.forEach(element => {
+                            
+                        });         
+                    //foreach는 배열 하나하나를 실행시켜주는 
+                           }
+
+        </script>
+    </head>
+    <body>
+
+        <h1 id="title">5주차 실습.</h1>
+        <span class="spanClass">Test</span>
+        <img src="http://via.placeholder.com/300x90.png" onerror="onErrorImg(this)"><br>
+        <a href ="javascript.querySelect();">셀렉터 테스트</a>
+
+    </body>
+</html>

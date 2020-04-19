@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="practice08.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="practice08.js"></script>
+ 
+    </head>
+
+    
+    <body>
+        
+        <div class="full-screen">
+            
+           <div class="chat-box">
+               <!--template랑 message는 복수 클래스/ 2개의 클래스인것(각각 따로)-->
+               <!--하나의 값만 지정해야하는 id와는 달리 클래스는 복수로 지정가능-->
+                <div class="message template">
+                    <img src="http://via.placeholder.com/30x30.png">
+                    <div class ="text">메세지 내용</div>
+                    <div class ="time">YYYYMMDD HH:mm</div>
+                </div>
+            </div> 
+
+
+
+            <!--이 부분이 내가 쓰는,입력하는 부분 -->
+            <div class="input-message">
+                <input type="text">
+            </div>
+
+        </div>
+    </body>
+</html>
