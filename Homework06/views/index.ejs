@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+        
+        Its index code : Hello world<br>
+        
+        
+
+        <!-- 여기 다시 생각해보기--> 
+       
+        <!--여기가 이제 ejs 문법-->
+        <!--%안에 있는 부분은 자바 코드로 인식해서 실행해줌-->
+          <!--%는 한줄 한줄 코드 추가될때 줄마다 써준다고 생각-->
+        <!-- <%=text%> --> 
+        <% if(text !=null){%>
+            <!--text가 null이 아닐때-->
+            <%=text%>
+
+        <% } else{%>
+             <!--text가 null일때(express코드에서 text의 상태를 지정해줄것-->
+            No text
+        <% }%>
+    </body>
+</html>

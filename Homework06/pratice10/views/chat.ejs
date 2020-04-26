@@ -1,0 +1,55 @@
+<!--ejs에서 haml언어 사용가능??-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="chat.css">
+
+       <!--일케 nick을 전역변수 선언시켜두면 chat.js에서 읽어다가-->
+        <script>const nick="<%=nick%>";</script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="chat.js"></script>
+ 
+    </head>
+
+    
+    <body>
+        
+        <div class="full-screen">
+            
+           <div class="chat-box">
+                <div class="message template">
+                    <img src="http://via.placeholder.com/30x30.png">
+                    <div class ="text">메세지 내용</div>
+                    <div class ="time">YYYYMMDD HH:mm</div>
+                </div>
+
+
+                <!-- <div class="message system">
+                    <img src="http://via.placeholder.com/30x30.png">
+                    <div class ="text">메세지 내용</div>
+                    <div class ="time">YYYYMMDD HH:mm</div>
+                </div>
+
+                <div class="message self">
+                    <img src="http://via.placeholder.com/30x30.png">
+                    <div class ="text">메세지 내용</div>
+                    <div class ="time">YYYYMMDD HH:mm</div>
+                </div>  -->
+                
+
+            </div> 
+
+           
+            <div class="input-message">
+                <input type="text">
+            </div>
+
+        </div>
+    </body>
+</html>
+
+
+

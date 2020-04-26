@@ -21,13 +21,13 @@ function onEnterMessage(){
     // 채팅창에 추가하기 전에 clear여부 검사 
     if(message=="/clear"){
 
-       // $(".template").removeClass("time");
+      //  $(".chat-box .template").removeClass("text");
       // alert("종료합니다");
       // $(".message.template .text").removeClass("text");
-     //  $(".message").removeClass("text");
-      // $(".chat-box").removeClass("message");
+       $(".message").removeClass("text");
+       $(".chat-box").removeClass("message");
 
-      $(".chat-box .message .text").empty("").append("삭제된 메시지입니다");
+     $(".chat-box .message .text").empty("").append("삭제된 메시지입니다");
       $(".chat-box .message .time").empty("");
 
     }
@@ -89,4 +89,21 @@ function addMessage(message){
         // 현재 실시간 데이터 표츌
         alert("텍스트 :: " + newValue);
      });*/
+
+
+//function delete(){
+  //채트박스 안에 message클래스를 가진 모든 div를 불러오는데 
+  //여기에 조건을 하나 더 줘서 (tmeplate는 아닌)
+  // 즉 이게 messahe만 선택힌
+  //이렇게 하고 remove를 하게되면
+  // 틀은 남아있고 문자랑 문자틀만 사라짐 
+  //(template는 남아있고 메시지만 삭제한 )
+  $(".chat-box .message:not(.template)").remove
+
+
+  //결론적으로 두가지 방법 있음
+
+  //1. 템플릿 따로 떼서 다른거 다 날린담에 템플릿을 다시 넣어주거나
+  //2. 템플릿을 뺸거만 날려주거나 
+
 

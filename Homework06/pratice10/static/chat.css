@@ -1,0 +1,97 @@
+html,body{
+    margin:0px;
+    height: 100%;
+}
+
+.full-screen{
+    height: 100%;
+    position: relative;
+}
+
+.chat-box{
+    height: 100%;
+    width: 100%;
+    background-color: rosybrown;
+
+    /*밀리지 않고 안에서 스크롤되도록*/
+    overflow-y: scroll;
+}
+
+.input-message{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid black;
+}
+
+.input-message > input{
+    width: 98%;
+    border: 0px;
+}
+
+.message{
+
+    width: 100%;
+    padding-top: 5px;
+  
+  /*  width: 50%;
+    margin-top: 5px;
+    background-color: white;*/
+}
+
+.message > img{
+    margin:5px;
+    float: left;
+}
+
+.message >.text{
+    background-color: white;
+    float: left;
+    width: 50%;
+    padding: 5px;
+    border-radius: 0.5rem;
+}
+
+.message >.time{
+    font-size: x-small;
+    clear: both;
+    width: 100%;
+    text-align: right;
+}
+
+.chat-box >.message:last-child{
+    margin-bottom: 30px;
+}
+
+/*시스템 안에 있는 메시지 숨겨버리기*/
+.chat-box > .message.system > img{
+    display: none;
+}
+
+/*template 클래스는 실행시키면 안보이는 */
+/*원래 있는 라이브러리 아니고 그냥 새로 만든거*/
+.template{
+    display: none;
+}
+
+
+
+/************** 과제3*************/
+/*self 클래스일때 텍스트 오른쪽으로*/
+.chat-box > .message.self > .text{
+    background-color: white;
+    float: right;
+    width: 50%;
+    padding: 5px;
+    border-radius: 0.5rem;
+}
+
+.chat-box > .message.self > .time{
+    font-size: x-small;
+    clear: both;
+    width: 100%;
+    text-align: center;
+}
+
+
