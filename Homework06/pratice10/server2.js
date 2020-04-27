@@ -1,4 +1,5 @@
 // practice10 서버 이름 server2.js입니다 
+// 이게 practice10 서버입니다!! 다른 서버들은 무시해주세요
 
 let moment = require('moment');
 const express = require('express');
