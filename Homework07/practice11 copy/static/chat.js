@@ -17,8 +17,6 @@ $(document).ready(()=>{
 
 
 
-
-
 function onEnterMessage(){
 
   var message=$(".input-message input[type=text]").val();

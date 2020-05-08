@@ -7,6 +7,7 @@ const express = require('express');
 var WebsocketServer = require('websocket').server;
 
 
+
 // 이건 웹소켓 함수
 // 리퀘스트 왔을때 바로 메시지 넣어주는
 //리퀘스트 접속이 들어왔을때 
