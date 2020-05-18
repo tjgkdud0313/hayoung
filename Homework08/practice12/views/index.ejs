@@ -1,0 +1,55 @@
+<!--ejs에서 html 언어 사용 가능함 ejs가 html을 대신해주는 역할이라 생각-->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="chat.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="chat.js"></script>
+ 
+    </head>
+
+    <body>
+
+        <!-- 젤 처음에 등장하는 페이지는 입력받는 페이지인데 
+        이 페이지는 enter라는 이름의 태그로 이루어짐 -->
+        <div id = "enter">
+            <!-- 엔터를 치면 페이지 전송을 하는것 -->
+            <!-- 서버에서 요청한 페이지로 넘어가는거  -->
+
+          <form onsubmit="onEnterRoom(); return true;"> 
+                <!-- 일케 return false라 하면 엔터 쳐도 안넘어감 (onenter안쓰고 이거만 썼을때-->
+                    입장<br><input type ="text" name = "nick" placeholder="닉네임"><br>
+                    <input type ="text" name = "room" placeholder="방이름"><br>
+                    <input type="submit" value="입장">
+                    <!-- 방 <input type ="text" name = "room name"> -->
+            </form>
+        </div>
+
+
+
+        <!-- 엔터를 누르고 바뀌게되는 채팅방 페이지, 이렇게 이렇게 페이지 
+        바뀌는거에 대한 코드는 클라이언트에 들어있음 
+        enter 태그를 가리고 이 태그를 보이게 하면 페이지가 바뀌는거 -->
+        <div id = "chat-window" class="full-screen" style="display: none;">
+            
+           <div class="chat-box">
+                <div class="message template">
+                    <img src="http://via.placeholder.com/30x30.png">
+                    <div class ="text">메세지 내용</div>
+                    <div class ="time">YYYYMMDD HH:mm</div>
+                </div>
+            </div> 
+            <div class="input-message">
+                <input type="text">
+            </div>
+
+        </div>
+    </body>
+</html>
+
+
+
