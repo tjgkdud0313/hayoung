@@ -55,8 +55,10 @@ app.post("/api/send", (req, res)=>{
   //   message:req.body.message
 
   // });
+
+  // 이게 바인딩 기법 
   connection.query("INSERT INTO messages(nick,room,message,'date')VALUES(?, ?, ?, ?)",
-  [req,body.nick,req.body.room, req.body.message, new Date().getTime()], ()=>{
+  [req.body.nick, req.body.room, req.body.message, new Date().getTime()], ()=>{
     res.json({});
   //  wsServer.connections.forEach(c=>c.send("check"));
   client.publish("MESSAGE");
