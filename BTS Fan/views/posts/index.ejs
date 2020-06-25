@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- jquery & bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- web font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    
+    <!-- my css -->
+    <link rel="stylesheet" href="/bts.css">
+    
+    <!-- my js -->
+    <script src="/script.js"></script>
+    
+    <title>BTS site</title>
+    
+    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+      <div class="container">
+      
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a href="/" class="nav-link">홈</a></li>
+            <li class="nav-item"><a href="/profile" class="nav-link">프로필</a></li>
+            <li class="nav-item"><a href="/posts" class="nav-link">게시판</a></li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <% if(isAuthenticated){ %>
+              <li class="nav-item"><a href="/users/<%= currentUser.username %>" class="nav-link">내 정보</a></li>
+              <li class="nav-item"><a href="/logout" class="nav-link">로그아웃</a></li>
+            <% } else { %>
+              <li class="nav-item"><a href="/users/new" class="nav-link">회원가입</a></li>
+              <li class="nav-item"><a href="/login" class="nav-link">로그인</a></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+
+
+    <div class="container mb-3">
+
+      <h2 class="mb-3">게시판</h2>
+
+
+      <!-- 제목,작성자,날짜 테이블 -->
+      <table class="board-table table table-sm border-bottom">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">제목</th>
+            <th scope="col" class="author">작성자</th>
+            <th scope="col" class="date">날짜</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% posts.forEach(function(post) { %>
+            <tr>
+              <!-- 1열 -->
+              <td>
+                <a href="/posts/<%= post._id %><%= getPostQueryString() %>"><div class="ellipsis"><%= post.title %></div></a>
+              </td>
+
+              <!-- 2열 -->
+              <td class="author">
+                <div class="ellipsis"><%= post.author ? post.author.username : "" %></div>
+              </td>
+
+              <!-- 3열 -->
+              <td class="date">
+                <span data-date="<%= post.createdAt %>"></span>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+
+
+
+      <div class="row mb-3">
+        <div class="col-2">
+          <% if(isAuthenticated){ %>
+            <!-- 로그인되었을 때만 보이게 -->
+            <!-- 글쓰기 페이지로 넘어감(new) -->
+            <a class="btn btn-primary" href="/posts/new<%= getPostQueryString() %>">글쓰기</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

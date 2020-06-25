@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- jquery & bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- web font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+   
+
+    
+    <!-- my css -->
+    <link rel="stylesheet" href="/bts.css">
+    
+    <!-- my js -->
+    <script src="/script.js"></script>
+    
+    <title>BTS site</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+            <div class="container">
+              
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                  <li class="nav-item"><a href="/" class="nav-link">홈</a></li>
+                  <li class="nav-item"><a href="/profile" class="nav-link">프로필</a></li>
+                  <li class="nav-item"><a href="/posts" class="nav-link">게시판</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                  <% if(isAuthenticated){ %>
+                    <li class="nav-item"><a href="/users/<%= currentUser.username %>" class="nav-link">내정보</a></li>
+                    <li class="nav-item"><a href="/logout" class="nav-link">로그아웃</a></li>
+                  <% } else { %>
+                    <li class="nav-item"><a href="/users/new" class="nav-link">회원가입</a></li>
+                    <li class="nav-item"><a href="/login" class="nav-link">로그인</a></li>
+                  <% } %>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          
+
+        <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          
+          <div>
+            <h3 class="display-4">박지민(朴智旻) / Park Ji-min</h3>
+               <p style="font-size:20px;" style="font-weight: bold;" style="font-style: italic;">"정말 해야 할 목표가 있다면, 뒤돌아보지 않기.주저하지 말고, 망설이지 말고, 일단 도전하는 게 중요합니다."</p></div><br>
+               
+               <span>
+               <p style="font-size:23px" style="text-align: center;" >이름 : 지민(박지민)</p>
+               <p style="font-size:23px" style="text-align: center;">생년월일 : 1995년 10월 13일(천칭자리) </p>
+               <p style="font-size:23px" style="text-align: center;" >키 : 173cm 몸무게:60kg</p>
+               <p style="font-size:23px" style="text-align: center;"> 취미: 춤추기, 노래듣기, 게임하기  </p>
+               <p style="font-size:23px" style="text-align: center;">좌우명: 웃어라! </p>
+          <img src="https://mblogthumb-phinf.pstatic.net/MjAxOTA2MTZfMTcg/MDAxNTYwNjY3NDMyOTYx.YRFD8w99hffbkFXbVdvVB-ugyWmwk-X5PRJbQFgT8VQg.Z4f65-4ph7rUFcTm4jnybzuyjzEUYd_Hax5tkWntJAsg.JPEG.girls_sy0309/e8eae7c2df686bd2981052305e77b28316031477932dba4acc86b0e3033b6543472ac3b421fb4155491493f268f90dc5836d2cacf79f9b84d306e60518a49ede68cf4efa33e0a9f6f7d25462e604c50e24fcde8f01400e3df52a1439374154d2.jpg?type=w800" width="460" height="630"></span>
+       
+
+          <span>
+            <img src="http://file3.instiz.net/data/cached_img/upload/2018/08/17/0/32d64ec98497f0b87b88e7165be4aef6.jpg" width="630" height="630"></span>
+       
+          </span>
+
+             
+      <div class="mt-4">
+        <a class="btn btn-primary" href="/profile">뒤로</a>
+      </div>
+        </div>
+      </div>
+    </body>
+</html>

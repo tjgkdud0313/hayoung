@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- jquery & bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!--  font -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    
+  
+    <!-- css 연결-->
+    <link rel="stylesheet" href="/bts.css">
+    
+    <!-- js 연결-->
+    <script src="/script.js"></script>
+    
+    
+
+    <title>BTS site</title>
+  </head>
+  <body>
+   
+    <!-- nav 태그: 사이트에서 주요한 네비게이션 역할을 하는 링크들을 담을 때 사용 -->
+    <!-- 상단바 고정시키기 -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+      <div class="container">
+       
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a href="/" class="nav-link">홈</a></li>
+            <li class="nav-item"><a href="/profile" class="nav-link">프로필</a></li>
+            <li class="nav-item"><a href="/posts" class="nav-link">게시판</a></li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <% if(isAuthenticated){ %>
+              <li class="nav-item"><a href="/users/<%= currentUser.username %>" class="nav-link">내 정보</a></li>
+              <li class="nav-item"><a href="/logout" class="nav-link">로그아웃</a></li>
+            <% } else { %>
+              <li class="nav-item"><a href="/users/new" class="nav-link">회원가입</a></li>
+              <li class="nav-item"><a href="/login" class="nav-link">로그인</a></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+
+
+
+
+
+    <div class="container mb-3">
+      <!-- jumbotron이라는 class를 사용, (bootstrap 제공 컴포넌트) -->
+
+      <div class="jumbotron">
+        <h1>방탄 소년단 팬카페</h1>
+        <P>방탄 소년단 팬카페에 오신걸 환영합니다!</p>
+          <!-- 이미지 태그 마지막에 슬래시 넣어야 하나?<img /> 일케 -->
+     
+          <div class="slider">  
+          <img src = "https://i.pinimg.com/originals/02/bd/01/02bd01453b99ff9fa0e473b0954f9c05.png" width = 1030, height="600"><br>
+          <img src = "https://mblogthumb-phinf.pstatic.net/MjAxODA1MTFfMTUz/MDAxNTI2MDMwNzg2NDA1.3-wBzP-QtP20YQd1WskiV6tHIaYJaOrp5hR28hRZ5c4g.IJ9JdSDij2r1vnI5EUWe5TavnoIc3AYkqhgyyLeqWWIg.PNG.btskook91/%EB%8B%A8%EC%B2%B4%EC%BB%A8%ED%8F%AC12.png?type=w800" width = 1030, height="600">
+          <img src = "https://t1.daumcdn.net/cfile/tistory/995F50365CA60BEA08?download" width = 1030, height="630"><br>
+      </div>
+      </div>
+
+    </div>
+  </body>
+</html>

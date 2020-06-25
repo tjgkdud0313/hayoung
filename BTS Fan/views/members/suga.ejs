@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- jquery & bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- web font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet"> -->
+
+
+    <!-- my css -->
+    <link rel="stylesheet" href="/bts.css">
+    
+    <!-- my js -->
+    <script src="/script.js"></script>
+    
+    <title>BTS site</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+            <div class="container">
+            
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                  <li class="nav-item"><a href="/" class="nav-link">홈</a></li>
+                  <li class="nav-item"><a href="/profile" class="nav-link">프로필</a></li>
+                  <li class="nav-item"><a href="/posts" class="nav-link">게시판</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                  <% if(isAuthenticated){ %>
+                    <li class="nav-item"><a href="/users/<%= currentUser.username %>" class="nav-link">내정보</a></li>
+                    <li class="nav-item"><a href="/logout" class="nav-link">로그아웃</a></li>
+                  <% } else { %>
+                    <li class="nav-item"><a href="/users/new" class="nav-link">회원가입</a></li>
+                    <li class="nav-item"><a href="/login" class="nav-link">로그인</a></li>
+                  <% } %>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          
+
+        <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+
+          <div>
+          <h3 class="display-4">민윤기(閔玧其) / Min Yoon-gi</h3>
+          <p style="font-size:20px;" style="font-weight: bold;" style="font-style: italic;"> "즐기다 보면 욕심이 나고 욕심이 나면 자연스레 성장하는 자신을 볼 수 있을 거예요. 즐기세요."</p><br>
+        </div>
+          <span>
+            <p style="font-size:23px" style="text-align: center;" >이름 : 민윤기(슈가)</p>
+            <p style="font-size:23px" style="text-align: center;">생년월일 : 1993년 4월 9일(물고기 자리) </p>
+            <p style="font-size:23px" style="text-align: center;" >키 : 174cm 몸무게:57kg</p>
+            <p style="font-size:23px" style="text-align: center;"> 취미: 스피커 모으기, 이케아 책자 보기  </p>
+            <p style="font-size:23px" style="text-align: center;">좌우명: I don't give a shit </p></span>
+          <img src="https://mblogthumb-phinf.pstatic.net/MjAxOTA2MTRfMjc3/MDAxNTYwNTIyODIwNDQz.eU8y6_GNVp-hogz2Bk2OEpTXcwgcIxw13TBKpXyeMGcg.Vo-ckaZT6wog_AeotaAHKY86y_e5Qe5kB-TBqkCSBHAg.JPEG.girls_sy0309/a56e3c201dab9a58b4386f8be5fb1758ff494bc3d7a6dfeaaf03ef9ebcd2a36015a68e30d6a831d05eb49040f2e9f5e8453d8f3ff7e5d45857ff940ebca38a5e3e441e48a758d5513101373da84bcad84e419cd34b4790b7dff2aca4bb1085ec.jpg?type=w800" width="470" height="630"></span>
+        
+
+          <span>
+            <img src="http://file3.instiz.net/data/cached_img/upload/2018/08/17/0/f572491696888ce255ce1b0cb38bcd8e.jpg" width="630" height="630">
+          </span>
+
+
+                
+      <div class="mt-4">
+        <a class="btn btn-primary" href="/profile">뒤로</a>
+      </div>
+        </div>
+      </div>
+            
+    </body>
+</html>

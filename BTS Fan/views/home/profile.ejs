@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- jquery & bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- web font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+   
+    
+    <!-- my css -->
+    <link rel="stylesheet" href="/bts.css">
+    
+    
+    <!-- my js -->
+    <script src="/script.js"></script>
+    <title>BTS site</title>
+  </head>
+
+  <body>
+    <!-- 상위 고정 메뉴 설정  -->
+    <!-- nav 태그는 사이트에서 주요한 네비게이션 역할을 하는 링크들을 담을 때 사용 -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+      <div class="container">
+       
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a href="/" class="nav-link">홈</a></li>
+            <li class="nav-item"><a href="/profile" class="nav-link">프로필</a></li>
+            <li class="nav-item"><a href="/posts" class="nav-link">게시판</a></li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <% if(isAuthenticated){ %>
+              <li class="nav-item"><a href="/users/<%= currentUser.username %>" class="nav-link">내 정보</a></li>
+              <li class="nav-item"><a href="/logout" class="nav-link">로그아웃</a></li>
+            <% } else { %>
+              <li class="nav-item"><a href="/users/new" class="nav-link">회원가입</a></li>
+              <li class="nav-item"><a href="/login" class="nav-link">로그인</a></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    <div class="container mb-3">
+
+      <div class="jumbotron">
+      <h2 class="mb-3">프로필</h2>
+      <P> 보고 싶은 멤버의 얼굴을 클릭하세요</p>
+        <div>
+          <span>
+
+              <!-- 진 -->
+
+              <a href="/members/jin" id = "jin">
+                <img src="https://img.theqoo.net/img/PeQIq.jpg" alt="btnImages" class="btnImages" width="150" height="190">
+
+              </a>
+            
+
+              <!-- 뷔 -->
+              <a href="/members/V" id ="V">
+            <img src="https://thumb.zumst.com/530x0/https://static.news.zumst.com/images/113/2019/04/02/aff28d2b2dab482eb3c3369e80b4992c.jpg" alt="btnImages" class="btnImages" width="150" height="190">
+  
+          </a>
+            
+               <!-- 지민 -->
+               <a href="/members/jimin" id ="jimin">
+               <img src="https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile10.uf.tistory.com%2Fimage%2F99D53F445CA8B5833BA466" alt="btnImages" class="btnImages" width="150" height="190">
+               </a>
+          </span>
+        </div>
+
+        <div>
+
+          <span>
+               <!-- 제이홉 -->
+               <a href="/members/jhope" id ="jhope">
+            <img src="https://file2.instiz.net/data/cached_img/upload/2016/06/27/2/86f9e1aa39f0c3dea18f894fab8b193b.jpg" alt="btnImages" class="btnImages" width="160" height="220">
+               </a>
+
+
+               <!-- 정국 -->
+            <a href="/members/jungguk" id ="jungguk">
+             <img src="https://pbs.twimg.com/media/Dvhd3XjV4AA-QhF.jpg " alt="btnImages" class="btnImages"  width="160" height="220">
+            </a>
+         
+
+             <!-- 슈가 -->
+           <a href="/members/suga" id="suga">
+              <img src="https://pbs.twimg.com/media/EKuGrfdUUAE_vDl.jpg" alt="btnImages" class="btnImages" width="160" height="220"> 
+           </a>
+    
+
+        <!-- RM -->
+         <a href="/members/RM" id="RM"> 
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/RM_at_%22Map_of_the_Soul_-_Persona%22_global_press_conference%2C_17_April_2019.jpg" alt="btnImages" class="btnImages" width="160" height="220">
+        </a>
+
+          </span>
+        </div>
+        </div>
+        
+  </body>
+</html>
+

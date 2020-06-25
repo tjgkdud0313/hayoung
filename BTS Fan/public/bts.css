@@ -1,0 +1,53 @@
+/*  body 태그를 선택자로 선택하고 폰트 설정>  전체 사이트 다 바꿈  */
+body {
+  font-family: 'Open Sans', sans-serif; 
+}
+.breadcrumb-item {
+  font-size: 0.8em !important;
+}
+.ellipsis{
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+/* 게시판 설정*/
+.board-table {
+  table-layout: fixed;
+}
+.board-table .author,
+.board-table .date {
+  width: 100px;
+}
+.post-body{
+  white-space: pre-line;
+}
+.post-info{
+  font-size: 0.8em;
+}
+.user-form {
+  width: 400px;
+}
+
+
+
+ /* 프로필창 위치 조정  */
+#jin{
+  margin-left:230;
+  margin-bottom:30px;
+  border:3px;
+  padding:0px;
+}
+#jhope{
+  margin-left:200px;
+  margin-bottom:30px;
+  border:3px;
+  padding:0px;
+}
+
+
+
