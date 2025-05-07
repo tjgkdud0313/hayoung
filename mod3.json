@@ -1,0 +1,414 @@
+{
+  "name": "mod3",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "NewsData",
+              "type": "array"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -240,
+        20
+      ],
+      "id": "95cea94a-fef2-4d54-a888-58b3904d4147",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"NewsData\": \n  [ \n    {\n      \"case\":\"AI\",\n      \"title\":\"title1\",\n      \"content\":\"바이브 코딩이라는 새로운 코딩 방식이 나왔다.\",\n  \"url\":\"https://www.yna.co.kr/view/AKR20250425004900091?input=1195m\"\n    },\n    {\n      \"case\":\"AI\",\n      \"title\":\"title2\",\n      \"content\":\"구글에서 A2A라는 새로운 개념을 발표했다.\",\n      \"url\":\"https://www.sedaily.com/NewsView/2GRNB00CAV\"\n    },\n    {\n      \"case\":\"AI\",\n      \"title\":\"title3\",\n      \"content\":\"클로드로 MCP가 가능하다.\",\n      \"url\":\"https://www.sedaily.com/NewsView/2GRNB200CAV\"\n    },\n    {\n      \"case\":\"AI\",\n      \"title\":\"title4\",\n      \"content\":\"커서 AI가 자연어로 코딩을 한다.\",\n      \"url\":\"https://www.sedaily.com/NewsView/2GRN1B00CAV\"\n    },\n    {\n      \"case\":\"AI\",\n      \"title\":\"title5\",\n      \"content\":\"GPT4가 업데이트 되다.\",\n      \"url\":\"https://www.sedaily.com/NewsView/2GRNB300CAV\"\n    }\n  ]\n  \n}\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "27aa8dea-3035-4016-a8ac-9c838868f1e6",
+      "name": "Edit Fields1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        560,
+        360
+      ],
+      "id": "12fc019f-98a1-416d-a58a-d25428678f0a",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "q3au7gHwlLD7wi2v",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{Math.random()}}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        700,
+        380
+      ],
+      "id": "5498a3dc-f5df-448d-a57d-8f6f3c678ac6",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1fdApAUhX3-dIFllFICfMv-TT_9aA1LGgnKH7ChEhZ40",
+          "mode": "list",
+          "cachedResultName": "Noname",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdApAUhX3-dIFllFICfMv-TT_9aA1LGgnKH7ChEhZ40/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1892831986,
+          "mode": "list",
+          "cachedResultName": "uploaded",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdApAUhX3-dIFllFICfMv-TT_9aA1LGgnKH7ChEhZ40/edit#gid=1892831986"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "case",
+              "displayName": "case",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        300,
+        120
+      ],
+      "id": "bb420aa3-f0fa-4a43-850d-2aff2237f5f8",
+      "name": "누적",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "sy99Txrwl9nNZAr9",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        460
+      ],
+      "id": "4a6f601f-f297-4d1d-be0c-e6222918aafc",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "q3au7gHwlLD7wi2v",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{Math.random()}}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -80,
+        480
+      ],
+      "id": "3aed10b9-f3e9-40e0-99c9-1b1ecdcaafae",
+      "name": "Simple Memory2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.output;\n\nconst cleaned = raw.replace(/```json\\n?/, '').replace(/```/,'').trim();\n\nlet parsed;\ntry{\n  parsed = JSON.parse(cleaned);\n  } catch(e){\n  throw new Error(\"JSON 파싱 실패\" + e.message);\n  }\n\nreturn parsed.map(item => ({json: item}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        120,
+        120
+      ],
+      "id": "94a46db0-8a2d-4a19-862a-47826e7825c9",
+      "name": "Json"
+    },
+    {
+      "parameters": {
+        "jsCode": "let mergeItem = $input.all().map(i=>i.json);\n\nreturn[\n  {\n    json: {\n      NewsData: mergeItem\n    }\n  }\n]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        280,
+        360
+      ],
+      "id": "c9a2cffb-d79d-4102-bb93-47c019da4b66",
+      "name": "합치기",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.NewsData.toJsonString() }} 여기서 요즘 이슈되는 기사 3개만 추려줘",
+        "options": {
+          "systemMessage": "너는 최근 동향, 트렌드, 이슈나 핫한 소식을 잘 알아. 사용자가 제공한 JSON 배열에서 요즘 가장 이슈되는 기사 3개를 골라서 **같은 JSON 포맷**으로 반환해. 형식은 JSON 구조와 동일하게 유지해. 다른 추가적인 내용은 일절 없이 JSON 구조에 맞춰 고른 3개만 말해.\n\n\n[\n   {\n      \"case\":\"\",\n      \"title\":\"\",\n      \"content\":\"\",\n      \"url\":\"\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        -180,
+        260
+      ],
+      "id": "5493bb97-a45c-4939-8de9-cc1931bd04a2",
+      "name": "이슈 기사 선택"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.toJsonString() }} 받은 content 내용들을 종합해서 금융권에서 얻을 수 있을 만한 인사이트를 도출해줘",
+        "options": {
+          "systemMessage": "=1. 너는 인사이트 도출의 전문가야. 아래 포맷으로 만들어서 줘\n2. 아래 포맷의 '변수1'은 전달받은 데이터에서 'case' 중복되는 내용을 적어주면 돼\n예를 들어 case가 AI가 중복이면 AI를 적고 마이데이터가 중복이면 마이데이터를 적는거야\n3. 다른 추가적인 내용은 일절 없고 아래 포맷으로만 전달해줘\n4. 제목인 OK News Letter는 포함되어야해\n5. 기사 3개의 내용을 종합해서 작성하는데 인사이트 내용은 200자 내로 작성해줘\n6. 각 기사의 요약 내용은 content의 내용을 그대로 적어\n\n---\n\nOK News Letter - '변수1' 뉴스입니다!\n\n1. 'title'\n요약 : 'content'\n'url'\n\n2. 'title'\n요약 : 'content'\n'url'\n\n3. 'title'\n요약 : 'content'\n'url'\n\n[위 기사를 본 AI의 짤막 의견!]\n인사이트 도출 내용"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        560,
+        140
+      ],
+      "id": "4be5a12b-f0ea-4024-8a10-77f602c0644a",
+      "name": "인사이트 도출"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://kapi.kakao.com/v2/api/talk/memo/default/send",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/x-www-form-urlencoded;charset=utf-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "template_object",
+              "value": "={\n        \"object_type\": \"text\",\n        \"text\": {{ $json.output.toJsonString() }},\n        \"link\": {\n            \"web_url\": \"https://developers.kakao.com\"\n        },\n        \"button_title\": \" \"\n    }"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        940,
+        140
+      ],
+      "id": "e9ff850e-e7c9-4b5e-838d-e782a7308b4a",
+      "name": "카톡 전송",
+      "credentials": {
+        "oAuth2Api": {
+          "id": "ujQnALiqLaROmhid",
+          "name": "Kakao API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "이슈 기사 선택",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "인사이트 도출",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "인사이트 도출",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "누적": {
+      "main": [
+        [
+          {
+            "node": "합치기",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "이슈 기사 선택",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory2": {
+      "ai_memory": [
+        [
+          {
+            "node": "이슈 기사 선택",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Json": {
+      "main": [
+        [
+          {
+            "node": "누적",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "합치기": {
+      "main": [
+        [
+          {
+            "node": "인사이트 도출",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "이슈 기사 선택": {
+      "main": [
+        [
+          {
+            "node": "Json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "인사이트 도출": {
+      "main": [
+        [
+          {
+            "node": "카톡 전송",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7e13ac36-2999-4775-9c9b-ba68eda14f30",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4239e549419ef51d12b5132312fd437ce8ee22eff2eada9a4870b18853888bef"
+  },
+  "id": "CVhEWYWDcewoH6io",
+  "tags": []
+}

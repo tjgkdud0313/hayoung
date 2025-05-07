@@ -1,0 +1,160 @@
+{
+  "name": "News Letter",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "21b00087-9e70-4ecd-a32c-78a38142773b",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "FI7EvWVBMVI7zDgP",
+          "mode": "list",
+          "cachedResultName": "mod2"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        0
+      ],
+      "id": "5d464134-676b-4848-93d2-a28bad123121",
+      "name": "Execute Workflow mod2"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "QVabJjhHDeIaXa6o",
+          "mode": "list",
+          "cachedResultName": "mod1"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "56a96ba8-e3d8-496c-ae9f-0e073dbcdadc",
+      "name": "Execute Workflow mod1"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "CVhEWYWDcewoH6io",
+          "mode": "list",
+          "cachedResultName": "mod3"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "NewsData": "={{ $json.data }}"
+          },
+          "matchingColumns": [
+            "NewsData"
+          ],
+          "schema": [
+            {
+              "id": "NewsData",
+              "displayName": "NewsData",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "array",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "mode": "each",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        740,
+        0
+      ],
+      "id": "ce755d37-4368-4b16-a762-a9e59fe988dd",
+      "name": "Execute Workflow"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow mod1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow mod1": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow mod2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow mod2": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "631d910c-40ac-47db-93fd-391efadd4971",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4239e549419ef51d12b5132312fd437ce8ee22eff2eada9a4870b18853888bef"
+  },
+  "id": "Q11y3gl4YbkiKWjp",
+  "tags": []
+}

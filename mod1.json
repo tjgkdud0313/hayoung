@@ -1,0 +1,519 @@
+{
+  "name": "mod1",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        0
+      ],
+      "id": "9748e9c8-00fa-4d6c-8585-38e7932aeb1e",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1fdApAUhX3-dIFllFICfMv-TT_9aA1LGgnKH7ChEhZ40",
+          "mode": "list",
+          "cachedResultName": "Noname",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdApAUhX3-dIFllFICfMv-TT_9aA1LGgnKH7ChEhZ40/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "url",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdApAUhX3-dIFllFICfMv-TT_9aA1LGgnKH7ChEhZ40/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        400,
+        -40
+      ],
+      "id": "18f5a4f2-2755-4043-a3e7-1331d7e100d2",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "sy99Txrwl9nNZAr9",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        560,
+        -100
+      ],
+      "id": "cd10b250-0508-4497-8fe7-d1a6e4f5a4ac",
+      "name": "HTTP Request",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ Math.random() }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1400,
+        120
+      ],
+      "id": "d98029aa-bc95-476f-8426-6262c1a54b82",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        100
+      ],
+      "id": "06f6d32f-071c-4b18-8bf9-8a24e7b3b114",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "q3au7gHwlLD7wi2v",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a1be9dca-a090-4771-8f4f-3ae86ff77d4b",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "```json",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1580,
+        -100
+      ],
+      "id": "d95f8d63-09eb-480f-b542-317060893be7",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "jsCode": "let json_array=[];\nfor(let i=0;i<$input.all().length;i++){\n  let temp=$input.all()[i].json.output;\n  temp=temp.replace(\"```json\",\"\");\n  temp=temp.replace(\"```\",\"\");\n  json_array.push(...JSON.parse(temp))\n}\nreturn json_array"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        -100
+      ],
+      "id": "283d6bf6-ee85-4440-bf53-f946f359d18e",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0dec05f6-6669-46ca-b57f-a89f05ad48de",
+              "name": "session",
+              "value": "={{ DateTime.now() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ],
+      "id": "84056d71-bb56-4de4-83f0-fc6eb31fb159",
+      "name": "Edit Fields",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        0
+      ],
+      "id": "aad3ef8a-6310-45e2-8337-0fe416862a66",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1fdApAUhX3-dIFllFICfMv-TT_9aA1LGgnKH7ChEhZ40",
+          "mode": "list",
+          "cachedResultName": "Noname",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdApAUhX3-dIFllFICfMv-TT_9aA1LGgnKH7ChEhZ40/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 725398431,
+          "mode": "list",
+          "cachedResultName": "test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdApAUhX3-dIFllFICfMv-TT_9aA1LGgnKH7ChEhZ40/edit#gid=725398431"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "case",
+              "displayName": "case",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1960,
+        -100
+      ],
+      "id": "0be9c793-901d-4a44-86af-c56b598be33d",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "sy99Txrwl9nNZAr9",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -20,
+        -160
+      ],
+      "id": "fa8d2bb9-20fa-487c-83c8-7e6baf8837b7",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=curl \"{{ $json.url }}\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        720,
+        20
+      ],
+      "id": "f6cda3ec-e2b0-4cf6-9588-1ece0fe762d7",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1120,
+        -100
+      ],
+      "id": "cdff2b4d-353c-41ef-a6e6-1374a3843647",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "$json.data=$json.stdout\nreturn $json"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        940,
+        20
+      ],
+      "id": "300a9658-fe4c-41ef-9be8-cd4a1b870d57",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}\n\n위 HTML코드 데이터에서 모든 article의 제목과 링크를 추출한다. \n웹페이지가 한국어 사이트가 아니면 article 제목을 한국어로 번역한다.\n기사가 아닌 것으로 보이는 제목이나 링크는 추출하지 않는다.\n'title'에 article 제목을 기록하고, 'url'에 link를 기록한다.\narticle의 link를 기록할 때에는 'https://' 등이 포함된 완전한 link여야 하며, 불완전할 때에는 보충하여 완전하게 수정한다.\narticle 번호로 추측되는 값이 없는 link는 기록하지 않는다.\n최대 10개의 기사를 추출한다.\n다음 json 형식에 맞춰 json array를 반환한다.\n추출이 실패한 경우를 제외하고 중간 과정이나 설명은 일절 답하지 않는다.\n{\n\"case\":\"{{ $('Google Sheets').item.json.case }}\",\n\"title\":(title),\n\"content\":\"\",\n\"url\":(url)\n}\n",
+        "options": {
+          "systemMessage": "너는 웹페이지 크롤링과 스크랩의 전문가이다.\n웹 페이지의 HTML 정보를 받으면 페이지 안에서 뉴스기사 제목과 링크를 추출할 수 있다.\n성공한 경우에는 기계처럼 결과만 답한다."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        1280,
+        -100
+      ],
+      "id": "222bd77c-fb23-48fb-95b8-36f147e62e0b",
+      "name": "AI Agent",
+      "retryOnFail": true,
+      "maxTries": 5
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        []
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7c9ab16d-4c0d-469b-9a58-3f8d3c67d4e1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4239e549419ef51d12b5132312fd437ce8ee22eff2eada9a4870b18853888bef"
+  },
+  "id": "QVabJjhHDeIaXa6o",
+  "tags": []
+}
