@@ -20,3 +20,68 @@ https://search.naver.com/search.naver?ssc=tab.news.all&where=news&sm=tab_jum&que
 
 콜라보레이션
 https://search.naver.com/search.naver?sm=tab_hty.top&where=news&ssc=tab.news.all&query=%EC%BD%9C%EB%9D%BC%EB%B3%B4%EB%A0%88%EC%9D%B4%EC%85%98&oquery=%EB%A7%88%EC%8A%A4%EC%BD%94%ED%8A%B8&tqi=jvQAulqVN8wsst9fn1Vssssss1R-360416&ackey=589pzrfu
+
+
+
+
+
+<AICE 전체 흐름> 
+
+1. 점수비중 : 
+2. -> import -> 그래프 그려서 칼럼간 상관관계 확인(countplot, jointplot, barplot, hitmap 등등) 
+   -> 결측치 제거(fillna), 필요없는 칼럼 제거(drop) -> 인코딩 (라벨인코딩, 원핫인코딩) 
+   -> x,y 분리하기(drop) -> train_test_split -> 정규화/표준화(RobustScaler, MinmaxScaler..StandardScaler) 
+   -> 머신러닝 학습 -> 머신러닝 평가(y_pred저장,값 비교) 
+   -> 딥러닝 학습 -> 딥러닝 평가(mse,boxplot 등등) 
+
+3. 오픈북 참고 사이트 
+(오픈북 가능 사이트-> 시험지 내에서 클릭해서 접속가능) 
+https://lhg010524.tistory.com/9
+https://velog.io/@sy508011/AICE-ASSOCIATE-%EC%9E%90%EA%B2%A9%EC%A6%9D-%EC%B7%A8%EB%93%9D%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%B4%9D-%EC%A0%95%EB%A6%AC
+
+
+4. kaggle에서 제공하는 데이터로 실습 문제 전부 연습하기 
+(내가 분류/회귀 문제 만들어서 풀어보기) 
+- 주로 예시는 회귀니까-> 분류모델도 대비
+
+5. 꿀팁 정리 
+- 필수 파라미터 빼먹으면 감점, inplace=True, axis=0 빼먹지 말기 
+- ML,DL 생각보다 어렵게 나오니까 이 부분 잘 대비하기 
+- 시험 예시문제 10번씩은 풀기 (완전 익숙해져서 술술 나오게)
+- 주피터 노트북 익숙해지기 
+
+
+
+
+< 데이터 인코딩 > 
+- 데이터 인코딩의 목적
+- sci-kit learn의 ML은 문자열 값을 입력값으로 허용하지 않는다.
+- 그렇기 때문에 모든 문자열 값은 인코딩을 해서 숫자형으로 변환해야 한다.
+- 인코딩 종류 방식에는 '레이블' 인코딩/ '원핫'인코딩 두 종류 
+
+[레이블 인코딩] 
+from sklearn.preprocessing import LabelEncoder
+items=['TV','냉장고','전자렌지','컴퓨터','선풍기','선풍기','믹서','믹서']
+
+encoder = LabelEncoder()
+encoder.fit(items)
+labels = encoder.transform(items)
+print("transformed encoder: ", labels)
+
+
+[원핫 인코딩] 
+from sklearn.preprocessing import OneHotEncoder
+import numpy as np
+
+items=['TV','냉장고','전자렌지','컴퓨터','선풍기','선풍기','믹서','믹서']
+
+# 2차원 데이터로 변환해야함
+items = np.array(items).reshape(-1, 1)
+
+# One Hot Encoding 적용
+ohe = OneHotEncoder()
+ohe.fit(items)
+oh_label = ohe.transform(items)
+
+print(oh_label.toarray())
+# 8개의 item을 원핫 인코딩을 통해 우위없이 범주형 데이터를 인코딩
