@@ -1,0 +1,127 @@
+function safeParseJSON(maybeJSON) {
+  if (maybeJSON == null) return null;
+  if (typeof maybeJSON === 'object') return maybeJSON;
+  try { return JSON.parse(maybeJSON); } catch (e) { return null; }
+}
+
+/* RESULT에서 회사 목록 추출 (Content 문자열/바로 객체 모두 대응) */
+function extractCompanyListFromRESULT(RESULT) {
+  var root = safeParseJSON(RESULT) || RESULT;
+
+  // 다양한 위치 방어: RESULT.Content, RESULT.body, RESULT.result 등
+  var contentObj = root && root.Content ? safeParseJSON(root.Content)
+                 : (root && root.body ? safeParseJSON(root.body) : null);
+
+  var resultObj = contentObj && contentObj.result ? contentObj.result
+               : (root && root.result ? root.result : null);
+
+  // 목록 키 방어 (금감원 companySearch 계열은 보통 baseList/ companyList)
+  var list = resultObj && (resultObj.baseList || resultObj.companyList || resultObj.result);
+  return Array.isArray(list) ? list : [];
+}
+
+/* 이름 정규화(공백/특수문자 제거, '주식회사/은행/㈜' 제거, 소문자화) */
+function normalizeName(s) {
+  if (!s) return '';
+  s = String(s);
+  return s.replace(/\s+/g, '')
+          .replace(/[^\w가-힣]/g, '')
+          .replace(/주식회사|㈜|은행|(주)/g, '')
+          .toLowerCase();
+}
+
+/* 영문/약칭 → 대표 한글 키워드 매핑 */
+var ALIASES = {
+  'kb':'국민','kbstar':'국민','kookmin':'국민',
+  'shinhan':'신한','sh':'신한',
+  'hana':'하나','keb':'하나',
+  'woori':'우리',
+  'nh':'농협','nonghyup':'농협',
+  'ibk':'기업',
+  'kdb':'산업',
+  'suhyup':'수협',
+  'sc':'제일','sc제일':'제일','stanchart':'제일',
+  'kakao':'카카오','kakaobank':'카카오',
+  'kbank':'케이',
+  'toss':'토스','tossbank':'토스'
+};
+
+function normalizeInput(userInput) {
+  var raw = (userInput || '').trim();
+  var base = normalizeName(raw);
+  if (ALIASES[base]) return normalizeName(ALIASES[base]);
+  var lettersOnly = raw.replace(/[^A-Za-z]/g, '').toLowerCase();
+  if (ALIASES[lettersOnly]) return normalizeName(ALIASES[lettersOnly]);
+  return base;
+}
+
+/* 간단 점수화: 완전일치>접두>부분포함>(원문 포함) */
+function scoreName(inputNorm, officialName) {
+  var nameNorm = normalizeInput(officialName);
+  if (!inputNorm || !nameNorm) return 0;
+  if (inputNorm === nameNorm) return 100;
+  if (nameNorm.indexOf(inputNorm) === 0) return 95;
+  if (nameNorm.indexOf(inputNorm) >= 0) return 90;
+  if (officialName.indexOf(inputNorm) >= 0) return 88; // 원문 내 원형 포함
+  return 0;
+}
+
+/* 최적 후보 선정 */
+function pickBestMatch(userInput, companies) {
+  var inputNorm = normalizeInput(userInput);
+  var scored = [];
+
+  for (var i = 0; i < companies.length; i++) {
+    var c = companies[i];
+    var name = c.kor_co_nm || c.korCoNm || '';
+    var s = scoreName(inputNorm, name);
+    if (s > 0) {
+      scored.push({
+        fin_co_no: c.fin_co_no || c.finCoNo || '',
+        kor_co_nm: name,
+        score: s
+      });
+    }
+  }
+
+  // 정렬: 점수 DESC → 이름길이 ASC → 사전순 ASC
+  scored.sort(function(a, b) {
+    if (b.score !== a.score) return b.score - a.score;
+    if (a.kor_co_nm.length !== b.kor_co_nm.length) return a.kor_co_nm.length - b.kor_co_nm.length;
+    return a.kor_co_nm < b.kor_co_nm ? -1 : 1;
+  });
+
+  return {
+    best: scored[0] || null,
+    candidateTop5: scored.slice(0, 5)
+  };
+}
+
+/* 메인 실행 */
+try {
+  var userBankInput = this.G_S_Bank;          // 사용자 입력(예: 'KB', '국민', '국민은행')
+  var companies = extractCompanyListFromRESULT(RESULT);
+
+  if (!companies.length) {
+    throw new Error('금감원 API 응답에서 회사 목록을 찾지 못했습니다.');
+  }
+
+  var pick = pickBestMatch(userBankInput, companies);
+  if (!pick.best) {
+    // 실패 시 출력값 초기화
+    Global.G_S_FinCoNo = '';
+    Global.G_S_FinKorNm = '';
+    Global.G_S_MatchScore = '0';
+    Global.G_S_Candidates = '[]';
+    throw new Error('입력값과 일치하는 후보가 없습니다: ' + userBankInput);
+  }
+
+  // 성공: 전역변수 세팅
+  Global.G_S_FinCoNo = pick.best.fin_co_no || '';
+  Global.G_S_FinKorNm = pick.best.kor_co_nm || '';
+  Global.G_S_MatchScore = String(pick.best.score || 0);
+  Global.G_S_Candidates = JSON.stringify(pick.candidateTop5);
+
+} catch (e) {
+
+}
